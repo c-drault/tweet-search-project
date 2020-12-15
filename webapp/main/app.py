@@ -16,7 +16,7 @@ def normalize(text):
 
 vectorizer = TfidfVectorizer(tokenizer=normalize, stop_words='english')
 
-def cosine_sim(row):
+def cosine_similarity(row):
     tfidf = vectorizer.fit_transform([row.input, row.text])
     return ((tfidf * tfidf.T).A)[0,1]
 	
@@ -26,7 +26,7 @@ def sorting_tweet (input_user,df):
     df['input'] = input_user
     
     # Applying cosine_sim function to a new column 
-    df['similarity'] = df.apply(cosine_sim, axis=1)
+    df['similarity'] = df.apply(cosine_similarity, axis=1)
     
     # Sorting dataframe by similarity highest value
     df = df.sort_values(by='similarity', ascending=False)

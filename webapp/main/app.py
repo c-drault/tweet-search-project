@@ -20,9 +20,6 @@ def cosine_sim(row):
     tfidf = vectorizer.fit_transform([row.input, row.text])
     return ((tfidf * tfidf.T).A)[0,1]
 	
-
-df = pd.read_csv('dataset/tweets_clean.csv', index_col=0)
-
 def sorting_tweet (input_user,df): 
     
     # Introducing data in the dataframe as a new column
@@ -44,6 +41,9 @@ def sorting_tweet (input_user,df):
         
     return output
 
+df = pd.read_csv('../dataset/tweets_clean.csv', index_col=0)
+
+	
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':

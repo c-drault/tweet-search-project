@@ -1,0 +1,5 @@
+Nltk
+sklearn
+flask
+pandas
+pytest

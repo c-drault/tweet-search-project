@@ -12,6 +12,7 @@ pipeline {
                 
                 sh '''#!/bin/bash
                     cd webapp/tests/
+                    python3 -m nltk.downloader
                     pytest-3
                 '''
             }

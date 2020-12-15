@@ -12,7 +12,7 @@ pipeline {
                 
                 sh '''#!/bin/bash
                     cd webapp/tests/
-                    /home/cdrault/.local/bin/pytest
+                    pytest
                 '''
             }
         }

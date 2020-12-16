@@ -17,10 +17,6 @@ pipeline {
                     python3 -m nltk.downloader all
                     pytest-3
                 '''
-                
-                if (env.BRANCH_NAME == 'develop') {
-                    version = version + "-dev"
-                }
             }
         }
         stage('Build Docker images') {
@@ -44,11 +40,7 @@ pipeline {
             steps {
                 sh "cd .. && docker run -d -p 5001:5000 --name tweet-search-container cdrault/tweet-search-project:${version}"
                 sh "cd .. && docker commit tweet-search-container cdrault/tweet-search-project:${version}"
-                if (env.BRANCH_NAME == 'develop') {
-                    sh "cd .. && docker push cdrault/tweet-search-project:${version}-dev"
-                } else {
-                    sh "cd .. && docker push cdrault/tweet-search-project:${version}"
-                }
+                sh "cd .. && docker push cdrault/tweet-search-project:${version}"
                 sh "cd .. && docker push cdrault/tweet-search-project:latest}"
                 
                 sh '''#!/bin/bash

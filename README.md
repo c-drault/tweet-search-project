@@ -6,7 +6,7 @@
     <img src="https://img.shields.io/static/v1?label=Subject&message=Tweet%20Search%20App&color=green">
   </a>
   <img src="https://img.shields.io/static/v1?label=Years&message=2020-2021&color=yellowgreen">
-  <img src="https://img.shields.io/static/v1?label=Version&message=v0&color=yellow">
+  <img src="https://img.shields.io/static/v1?label=Version&message=0.3-dev&color=yellow">
 </p>
 
 > Create a machine learning application, which find 20 tweets refer to a word.  

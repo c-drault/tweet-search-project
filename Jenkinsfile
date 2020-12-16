@@ -9,7 +9,7 @@ pipeline {
             }
             steps {
                 echo 'Building...'
-                echo ${BUILD_NUMBER}
+                echo "${BUILD_NUMBER}"
                 
                 sh '''#!/bin/bash
                     cd webapp/tests/

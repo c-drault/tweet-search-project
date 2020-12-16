@@ -1,7 +1,4 @@
 def version = "0.3";
-if (env.BRANCH_NAME == 'develop') {
-    version = version + "-dev"
-}
 
 pipeline {
     agent any
@@ -20,6 +17,10 @@ pipeline {
                     python3 -m nltk.downloader all
                     pytest-3
                 '''
+                
+                if (env.BRANCH_NAME == 'develop') {
+                    version = version + "-dev"
+                }
             }
         }
         stage('Build Docker images') {

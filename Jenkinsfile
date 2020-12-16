@@ -38,10 +38,12 @@ pipeline {
                 }
             }
             steps {
-                sh "cd .. && docker run -d -p 5001:5000 --name tweet-search-container cdrault/tweet-search-project:${version}"
-                sh "cd .. && docker commit tweet-search-container cdrault/tweet-search-project:${version}"
-                sh "cd .. && docker push cdrault/tweet-search-project:${version}"
-                sh "cd .. && docker push cdrault/tweet-search-project:latest"
+                sh "docker run -d -p 5001:5000 --name tweet-search-container cdrault/tweet-search-project:${version}"
+                sh "docker commit tweet-search-container cdrault/tweet-search-project:${version}"
+                sh "docker stop tweet-search-container"
+                sh "docker rm tweet-search-container"
+                sh "docker push cdrault/tweet-search-project:${version}"
+                sh "docker push cdrault/tweet-search-project:latest"
                 
                 sh '''#!/bin/bash
                     cd ..

@@ -43,7 +43,6 @@ pipeline {
                 sh "docker stop tweet-search-container"
                 sh "docker rm tweet-search-container"
                 sh "docker push cdrault/tweet-search-project:${version}"
-                sh "docker push cdrault/tweet-search-project:latest"
                 
                 sh '''#!/bin/bash
                     cd ..

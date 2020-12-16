@@ -1,3 +1,5 @@
+def version = "0.3"
+
 pipeline {
     agent any
     stages {
@@ -8,8 +10,7 @@ pipeline {
                 }
             }
             steps {
-                echo 'Building...'
-                echo "${BUILD_NUMBER}"
+                sh "echo ${myVariable}"
                 
                 sh '''#!/bin/bash
                     cd webapp/tests/
@@ -23,13 +24,10 @@ pipeline {
                 anyOf{
                     branch 'release-*'
                     branch 'develop'
-                    branch 'add-jenkinsfile'
                 }
             }
             steps {
-                sh '''#!/bin/bash
-                    docker build --tag cdrault/tweet-search-project:0.1 .
-                '''
+                sh "docker build --tag cdrault/tweet-search-project:${myVariable} ."
             }
         }
         stage('Push Docker Images') {
@@ -37,13 +35,12 @@ pipeline {
                 anyOf{
                     branch 'release-*'
                     branch 'develop'
-                    branch 'add-jenkinsfile'
                 }
             }
             steps {
                 sh '''#!/bin/bash
                     cd ..
-                    docker run -d -p 5000:5000 --name tweet-search-container cdrault/tweet-search-project:0.1
+                    docker run -d -p 5001:5000 --name tweet-search-container cdrault/tweet-search-project:0.1
                     docker commit tweet-search-container cdrault/tweet-search-project:0.1
                     docker push cdrault/tweet-search-project:0.1
                     docker stop tweet-search-container

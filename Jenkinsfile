@@ -1,4 +1,4 @@
-def version = "0.3";
+def version = "0.3-dev";
 
 pipeline {
     agent any

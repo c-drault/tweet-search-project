@@ -13,3 +13,7 @@
 > For this project, we have to use **Docker** to create packages, **Jenkins** to build / test / deploy automaticly and **Prometheus** to monitor the application.
 
 # 📦 How to install it
+Use docker with :
+```console
+docker run -d -p 5000:5000 cdrault/tweet-search-project:0.3-dev
+```

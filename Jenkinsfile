@@ -9,6 +9,7 @@ pipeline {
             }
             steps {
                 echo 'Building...'
+                echo ${BUILD_NUMBER}
                 
                 sh '''#!/bin/bash
                     cd webapp/tests/
@@ -25,7 +26,10 @@ pipeline {
                 }
             }
             steps {
-                echo 'Testing...'
+                sh '''#!/bin/bash
+                    cd ..
+                    docker build
+                '''
             }
         }
         stage('Push Docker Images') {
@@ -36,18 +40,26 @@ pipeline {
                 }
             }
             steps {
-                echo 'Deploying...'
+                sh '''#!/bin/bash
+                    cd ..
+                    docker run -d -p 5000:5000 --name tweet-search-container cdrault/tweet-search-project:VERSION
+                    docker commit tweet-search-container cdrault/tweet-search-project:VERSION
+                    docker push cdrault/tweet-search-project:VERSION
+                    docker stop tweet-search-container
+                    docker rm tweet-search-container
+                '''
             }
         }
         stage('Launch app on server') {
             when{
                 anyOf{
-                    branch 'release-*'
                     branch 'develop'
                 }
             }
             steps {
-                echo 'Deploying...'
+                sh '''#!/bin/bash
+                    docker run -d -p 5000:5000 --name tweet-search-project-dev cdrault/tweet-search-project
+                '''
             }
         }
     }

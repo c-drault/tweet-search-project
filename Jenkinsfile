@@ -10,7 +10,7 @@ pipeline {
                 }
             }
             steps {
-                sh "echo ${myVariable}"
+                sh "echo ${version}"
                 
                 sh '''#!/bin/bash
                     cd webapp/tests/
@@ -27,7 +27,7 @@ pipeline {
                 }
             }
             steps {
-                sh "docker build --tag cdrault/tweet-search-project:${myVariable} ."
+                sh "docker build --tag cdrault/tweet-search-project:${version} ."
             }
         }
         stage('Push Docker Images') {

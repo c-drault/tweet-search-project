@@ -43,12 +43,6 @@ pipeline {
                 sh "docker stop tweet-search-container"
                 sh "docker rm tweet-search-container"
                 sh "docker push cdrault/tweet-search-project:${version}"
-                
-                sh '''#!/bin/bash
-                    cd ..
-                    docker stop tweet-search-container
-                    docker rm tweet-search-container
-                '''
             }
         }
         stage('Launch app on server') {

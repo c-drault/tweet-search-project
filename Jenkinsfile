@@ -24,6 +24,7 @@ pipeline {
                 anyOf{
                     branch 'release-*'
                     branch 'develop'
+                    branch 'add-jenkinsfile'
                 }
             }
             steps {
@@ -35,14 +36,16 @@ pipeline {
                 anyOf{
                     branch 'release-*'
                     branch 'develop'
+                    branch 'add-jenkinsfile'
                 }
             }
             steps {
+                sh "cd .. && docker run -d -p 5001:5000 --name tweet-search-container cdrault/tweet-search-project:${version}"
+                sh "cd .. && docker commit tweet-search-container cdrault/tweet-search-project:${version}"
+                sh "cd .. && docker push cdrault/tweet-search-project:${version}"
+                
                 sh '''#!/bin/bash
                     cd ..
-                    docker run -d -p 5001:5000 --name tweet-search-container cdrault/tweet-search-project:0.1
-                    docker commit tweet-search-container cdrault/tweet-search-project:0.1
-                    docker push cdrault/tweet-search-project:0.1
                     docker stop tweet-search-container
                     docker rm tweet-search-container
                 '''
@@ -55,9 +58,7 @@ pipeline {
                 }
             }
             steps {
-                sh '''#!/bin/bash
-                    docker run -d -p 5000:5000 --name tweet-search-project-dev cdrault/tweet-search-project:0.1
-                '''
+                sh "docker run -d -p 5000:5000 --name tweet-search-project-dev cdrault/tweet-search-project:${version}"
             }
         }
     }

@@ -58,6 +58,8 @@ pipeline {
                 }
             }
             steps {
+                sh "docker stop tweet-search-project-dev"
+                sh "docker rm tweet-search-project-dev"
                 sh "docker run -d -p 5000:5000 --name tweet-search-project-dev cdrault/tweet-search-project:${version}"
             }
         }

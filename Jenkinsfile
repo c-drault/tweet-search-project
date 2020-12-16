@@ -24,7 +24,6 @@ pipeline {
                 anyOf{
                     branch 'release-*'
                     branch 'develop'
-                    branch 'add-jenkinsfile'
                 }
             }
             steps {
@@ -36,7 +35,6 @@ pipeline {
                 anyOf{
                     branch 'release-*'
                     branch 'develop'
-                    branch 'add-jenkinsfile'
                 }
             }
             steps {

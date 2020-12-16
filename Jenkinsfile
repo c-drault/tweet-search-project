@@ -1,4 +1,7 @@
-def version = "0.3"
+def version = "0.3";
+if (env.BRANCH_NAME == 'develop') {
+    version = version + "-dev"
+}
 
 pipeline {
     agent any
@@ -40,7 +43,12 @@ pipeline {
             steps {
                 sh "cd .. && docker run -d -p 5001:5000 --name tweet-search-container cdrault/tweet-search-project:${version}"
                 sh "cd .. && docker commit tweet-search-container cdrault/tweet-search-project:${version}"
-                sh "cd .. && docker push cdrault/tweet-search-project:${version}"
+                if (env.BRANCH_NAME == 'develop') {
+                    sh "cd .. && docker push cdrault/tweet-search-project:${version}-dev"
+                } else {
+                    sh "cd .. && docker push cdrault/tweet-search-project:${version}"
+                }
+                sh "cd .. && docker push cdrault/tweet-search-project:latest}"
                 
                 sh '''#!/bin/bash
                     cd ..
@@ -58,7 +66,7 @@ pipeline {
             steps {
                 sh "docker stop tweet-search-project-dev"
                 sh "docker rm tweet-search-project-dev"
-                sh "docker run -d -p 5000:5000 --name tweet-search-project-dev cdrault/tweet-search-project:${version}"
+                sh "docker run -d -p 5000:5000 --name tweet-search-project-dev cdrault/tweet-search-project:${version}-dev"
             }
         }
     }

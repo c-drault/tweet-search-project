@@ -37,15 +37,15 @@ pipeline {
                 anyOf{
                     branch 'release-*'
                     branch 'develop'
-                    branch 'add-jenkins'
+                    branch 'add-jenkinsfile'
                 }
             }
             steps {
                 sh '''#!/bin/bash
                     cd ..
-                    docker run -d -p 5000:5000 --name tweet-search-container cdrault/tweet-search-project:VERSION
-                    docker commit tweet-search-container cdrault/tweet-search-project:VERSION
-                    docker push cdrault/tweet-search-project:VERSION
+                    docker run -d -p 5000:5000 --name tweet-search-container cdrault/tweet-search-project:0.1
+                    docker commit tweet-search-container cdrault/tweet-search-project:0.1
+                    docker push cdrault/tweet-search-project:0.1
                     docker stop tweet-search-container
                     docker rm tweet-search-container
                 '''
@@ -59,7 +59,7 @@ pipeline {
             }
             steps {
                 sh '''#!/bin/bash
-                    docker run -d -p 5000:5000 --name tweet-search-project-dev cdrault/tweet-search-project
+                    docker run -d -p 5000:5000 --name tweet-search-project-dev cdrault/tweet-search-project:0.1
                 '''
             }
         }

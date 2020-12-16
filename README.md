@@ -6,7 +6,7 @@
     <img src="https://img.shields.io/static/v1?label=Subject&message=Tweet%20Search%20App&color=green">
   </a>
   <img src="https://img.shields.io/static/v1?label=Years&message=2020-2021&color=yellowgreen">
-  <img src="https://img.shields.io/static/v1?label=Version&message=0.3-dev&color=yellow">
+  <img src="https://img.shields.io/static/v1?label=Version&message=v1.0&color=yellow">
 </p>
 
 > Create a machine learning application, which find 20 tweets refer to a word.  
@@ -15,5 +15,5 @@
 # 📦 How to install it
 Use docker with :
 ```console
-docker run -d -p 5000:5000 cdrault/tweet-search-project:0.3-dev
+docker run -d -p 5000:5000 cdrault/tweet-search-project:1.0
 ```

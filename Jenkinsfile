@@ -28,7 +28,6 @@ pipeline {
             }
             steps {
                 sh '''#!/bin/bash
-                    cd ..
                     docker build --tag cdrault/tweet-search-project:0.1 .
                 '''
             }

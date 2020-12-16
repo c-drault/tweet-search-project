@@ -5,6 +5,8 @@ import pandas as pd
 app = Flask(__name__)
 import sys
 
+from prometheus_client import start_http_server
+
 stemmer = nltk.stem.porter.PorterStemmer()
 remove_punctuation_map = dict((ord(char), None) for char in string.punctuation)
 
@@ -59,4 +61,5 @@ def index():
 
 
 if __name__ == '__main__':
+	start_http_server(8010)
     app.run(debug=True,host='0.0.0.0')

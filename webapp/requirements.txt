@@ -3,3 +3,4 @@ sklearn
 flask
 pandas
 pytest
+prometheus-client
